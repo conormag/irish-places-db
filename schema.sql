@@ -5,6 +5,17 @@
 CREATE EXTENSION IF NOT EXISTS postgis;
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
+--api_keys table for managing access
+CREATE TABLE IF NOT EXISTS api_keys (
+    id          BIGSERIAL PRIMARY KEY,
+    key_hash    TEXT UNIQUE NOT NULL,
+    email       TEXT NOT NULL,
+    description TEXT,
+    is_active    BOOLEAN DEFAULT TRUE,
+    created_at   TIMESTAMPTZ DEFAULT NOW(),
+    last_used_at TIMESTAMPTZ
+);
+
 -- Counties
 CREATE TABLE IF NOT EXISTS counties (
     id          BIGSERIAL PRIMARY KEY,
